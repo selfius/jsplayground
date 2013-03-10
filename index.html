@@ -1,18 +1,14 @@
-<html>
-  <head>
-    <title>My first js app</title>
-  </head>
-
-  <script src='libs/raphael.js'>
-  </script>
-  <script src='libs/jquery.js'>
-  </script>
+<html> 
+<head> 
+	<title>My first js app</title> 
+</head>
+  <script src='libs/raphael.js'></script>
+  <script src='libs/jquery.js'></script>
 
   <body> 
-    <div id='clockDiv'>
-
-    </div>
+    <div id='clockDiv'></div>
   </body>
+  
   <script>
 
     ClockWidget = function(id){
@@ -20,55 +16,52 @@
     }
 
     ClockWidget.prototype = {
-
       constants : {
-	height : 200,
-	width : 200
+		  height : 200,
+		  width : 200
       },
 
       init : function(){
-	divElement = $('#'+this.id);
-	//divElement.text( currentDate.getHours() + ' : ' + currentDate.getMinutes() + ' : ' + currentDate.getSeconds());
-	divElement.height(this.constants.height);
-	divElement.width(this.constants.width);
-	this.paper = Raphael(divElement.position().left,divElement.position().top,this.constants.height, this.constants.width);
+		  divElement = $('#'+this.id);
+		  //divElement.text( currentDate.getHours() + ' : ' + currentDate.getMinutes() + ' : ' + currentDate.getSeconds());
+		  divElement.height(this.constants.height);
+		  divElement.width(this.constants.width);
+		  this.paper = Raphael(divElement.position().left,divElement.position().top,this.constants.height, this.constants.width);
       },
 
       calculateAngel : function(timeUnitValue){
-	//calculate angel of clock arrow
-	return (timeUnitValue * 6);
+		  //calculate angel of clock arrow
+		  return (timeUnitValue * 6);
       },
 
       drawArrow : function(arrowWidth, timeUnit){
-	arrow = this.paper.rect(this.constants.width / 2 - arrowWidth / 2 , 20, 
-	arrowWidth , this.constants.height / 2 - 10);
-	arrow.attr('fill','black');
-	arrow.rotate(this.calculateAngel(timeUnit),this.constants.width / 2 , this.constants.height / 2 );
+		  arrow = this.paper.rect(this.constants.width / 2 - arrowWidth / 2 , 20, 
+		  arrowWidth , this.constants.height / 2 - 10);
+		  arrow.attr('fill','black');
+		  arrow.rotate(this.calculateAngel(timeUnit),this.constants.width / 2 , this.constants.height / 2 );
       },
 
       draw : function(){
-	currentDate = new Date();
-	clockbase = this.paper.rect(0,0,this.constants.height,this.constants.width);
-	clockbase.attr('fill', 'white');
-	clockbase.attr('stroke','white');
-	clockbase.attr('fill',this.paper.image('img/clockbg.png',0,0,this.constants.height, this.constants.width));	
-	this.drawArrow(4, currentDate.getHours());
-	this.drawArrow(2, currentDate.getMinutes());
-	this.drawArrow(1, currentDate.getSeconds());
-
+		  currentDate = new Date();
+		  clockbase = this.paper.rect(0,0,this.constants.height,this.constants.width);
+		  clockbase.attr('fill', 'white');
+		  clockbase.attr('stroke','white');
+		  clockbase.attr('fill',this.paper.image('img/clockbg.png',0,0,this.constants.height, this.constants.width));	
+		  this.drawArrow(4, currentDate.getHours());
+		  this.drawArrow(2, currentDate.getMinutes());
+		  this.drawArrow(1, currentDate.getSeconds());
       }
     }
-
 
     clockWidget = new ClockWidget('clockDiv')
     widgets = new Array(clockWidget);
     for (i=0;i<widgets.length; i++){
-      widgets[i].init();
+     	  widgets[i].init();
     }
 
     updateAllWidgetsOnTime = function () {
-      for (i=0;i<widgets.length; i++){
-	widgets[i].draw();
+		  for (i=0;i<widgets.length; i++){
+			  widgets[i].draw();
       }
     }
     setInterval(updateAllWidgetsOnTime,1000);
