@@ -34,7 +34,7 @@
 	this.paper = Raphael(divElement.position().left,divElement.position().top,this.constants.height, this.constants.width);
       },
 
-      calculateAngel : function(timeUnitValue){
+      calculateAngle : function(timeUnitValue){
 	//calculate angel of clock arrow
 	return (timeUnitValue * 6);
       },
@@ -43,7 +43,7 @@
 	arrow = this.paper.rect(this.constants.width / 2 - arrowWidth / 2 , 20, 
 	arrowWidth , this.constants.height / 2 - 10);
 	arrow.attr('fill','black');
-	arrow.rotate(this.calculateAngel(timeUnit),this.constants.width / 2 , this.constants.height / 2 );
+	arrow.rotate(this.calculateAngle(timeUnit),this.constants.width / 2 , this.constants.height / 2 );
       },
 
       draw : function(){
